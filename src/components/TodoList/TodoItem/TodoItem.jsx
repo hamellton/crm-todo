@@ -115,75 +115,104 @@ const TodoItem = (props) => {
         }
     }
 
+    const showSelectImg = () => {
+        return selectImg.map(el => {
+            return <img
+                className={item.img.id === el.id && classes.img__select__disabled}
+                onClick={() => imgHandler(id, el.src, el.alt, el.id)}
+                key={el.id}
+                width={20}
+                height={20}
+                src={el.src}
+                alt={el.alt}
+            />
+        })
+    }
+
+    const showInputIdOrHandlerId = () => {
+        return !item.id ? <input
+            className={classes.item__id__input}
+            type="text"
+            id="id"
+            ref={refId}
+            value={idInput}
+            onChange={changeHandlerId}
+            onKeyPress={addId}
+            autoFocus={!focus ? true : false}
+        /> : <div className={classes.item__id}>{item.id}</div>
+    }
+
+    const showTitleHandlerOrTitle = () => {
+        return !item.title || titleStatus ? <input
+        onClick={(e) => e.stopPropagation()}
+            className={classes.item__title__input}
+            type="text"
+            id="id"
+            ref={refTitle}
+            value={title}
+            onChange={changeHandlerTitle}
+            onKeyPress={addTitle}
+            autoFocus={focus}
+        /> : <div className={classes.item__title__text}><span onClick={changeTitleStatus}>{item.title}</span></div>
+    }
+
+    const showDeleteButton = () => {
+        return <div
+            onMouseLeave={() => setOpacityItem(false)}
+            onMouseEnter={() => setOpacityItem(true)}
+            className={classes.item__delete}>
+            {!item.default && <button
+                title={tooltipForDeleteBtn}
+                className={!item.default && classes.btn__delete}
+                onClick={event => deleteFieldHandler(event, id)}>
+                {!item.default ? 'X' : null}
+            </button>}
+        </div>
+    }
+
+    const showImgTitle = () => {
+        return <div className={classes.item__title__img}>
+            <img width={20} height={20} src={item.img.src} alt={item.img.alt} />
+        </div>
+    }
+
+    const renderLableBox = () => {
+        return <div className={classes.item__checkbox}>
+            <input
+                className={classes.highload}
+                type="checkbox"
+                id={id} name="highload"
+                checked={item.status}
+                onChange={() => toggleHandlerCheckBox(id)}
+            />
+            <label htmlFor={id} className={classes.lb1} />
+        </div>
+    }
+
+    const renderTitleDescription = () => {
+        return <div className={classes.item__title}>
+            {showImgTitle()}
+            {showTitleHandlerOrTitle()}
+            {changeImg && <div ref={ref} onClick={onClickImgSelectBlock} className={classes.img__select}>
+                {showSelectImg()}
+            </div>
+            }
+        </div>
+    }
+
 
     return (
-        <div
+        <section
             onClick={() => changeStatusLock(id)}
             className={`${item.statusLock ? classes.item__select : classes.item} ${opacityItem && classes.opacity__delete}`}
         >
             <div className={item.statusLock ? classes.item__separator : classes.item__separator__hover} />
-            <div className={classes.item__checkbox}>
-                <input
-                    className={classes.highload}
-                    type="checkbox"
-                    id={id} name="highload"
-                    checked={item.status}
-                    onChange={() => toggleHandlerCheckBox(id)}
-                />
-                <label htmlFor={id} className={classes.lb1} />
-            </div>
+            {renderLableBox()}
             {item.product && <div className={classes.item__product}>{item.product}</div>}
-            {!item.id ? <input
-                className={classes.item__id__input}
-                type="text"
-                id="id"
-                ref={refId}
-                value={idInput}
-                onChange={changeHandlerId}
-                onKeyPress={addId}
-                autoFocus={!focus ? true : false}
-            /> : <div className={classes.item__id}>{item.id}</div>}
-            <div className={classes.item__title}>
-                <div className={classes.item__title__img}>
-                    <img width={20} height={20} src={item.img.src} alt={item.img.alt} />
-                </div>
-                {!item.title || titleStatus ? <input
-                    className={classes.item__title__input}
-                    type="text"
-                    id="id"
-                    ref={refTitle}
-                    value={title}
-                    onChange={changeHandlerTitle}
-                    onKeyPress={addTitle}
-                    autoFocus={focus}
-                /> : <div className={classes.item__title__text}><span onClick={changeTitleStatus}>{item.title}</span></div>}
-                {changeImg && <div ref={ref} onClick={onClickImgSelectBlock} className={classes.img__select}>
-                    {selectImg.map(el => {
-                        return <img
-                            className={item.img.id === el.id && classes.img__select__disabled}
-                            onClick={() => imgHandler(id, el.src, el.alt, el.id)}
-                            key={el.id}
-                            width={20}
-                            height={20}
-                            src={el.src}
-                            alt={el.alt}
-                        />
-                    })}
-                </div>
-                }
-            </div>
-            <div
-                onMouseLeave={() => setOpacityItem(false)}
-                onMouseEnter={() => setOpacityItem(true)}
-                className={classes.item__delete}>
-                {!item.default && <button
-                    title={tooltipForDeleteBtn}
-                    className={!item.default && classes.btn__delete}
-                    onClick={event => deleteFieldHandler(event, id)}>
-                    {!item.default ? 'X' : null}
-                </button>}
-            </div>
-        </div>
+            {showInputIdOrHandlerId()}
+            {renderTitleDescription()}
+            {showDeleteButton()}
+        </section>
     )
 }
 

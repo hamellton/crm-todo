@@ -16,31 +16,39 @@ const TodoList = (props) => {
     selectImg,
     onChangeImg,
   } = props
-  return (
-    <div className={classes.todo}>
-      {defaultItem && <TodoItem
-        item={defaultItem}
+
+  const renderTodoList = () => {
+    return todo.map((el) =>
+      <TodoItem
+        key={el.id}
+        id={el.id}
+        item={el}
         toggleHandler={toggleHandler}
-        setDefultItem={setDefultItem}
+        onDelete={onDelete}
+        onChangeTitle={onChangeTitle}
         setFocus={setFocus}
         focus={focus}
-      />}
-      {todo.map((el) =>
-        <TodoItem
-          key={el.id}
-          id={el.id}
-          item={el}
-          toggleHandler={toggleHandler}
-          onDelete={onDelete}
-          onChangeTitle={onChangeTitle}
-          setFocus={setFocus}
-          focus={focus}
-          changeStatusLock={changeStatusLock}
-          selectImg={selectImg}
-          onChangeImg={onChangeImg}
-        />)
-      }
-    </div>
+        changeStatusLock={changeStatusLock}
+        selectImg={selectImg}
+        onChangeImg={onChangeImg}
+      />)
+  }
+
+  const renderDefaultItem = () => {
+    return defaultItem && <TodoItem
+      item={defaultItem}
+      toggleHandler={toggleHandler}
+      setDefultItem={setDefultItem}
+      setFocus={setFocus}
+      focus={focus}
+    />
+  }
+
+  return (
+    <section className={classes.todo}>
+      {renderDefaultItem()}
+      {renderTodoList()}
+    </section>
   )
 }
 

@@ -1,6 +1,6 @@
-import { React, useState, useEffect } from "react"
+import { React, useState, useEffect, useRef, useCallback } from "react"
 import TodoList from "./components/TodoList/TodoList"
-import { ITEM, TODO_LIST, selectImages } from './constants'
+import { ITEM, TODO_LIST, selectImages, selectNameLabel } from './constants'
 import classes from './App.module.css'
 
 const App = () => {
@@ -8,15 +8,27 @@ const App = () => {
   const [defaultItem, setDefultItem] = useState(null)
   const [focus, setFocus] = useState(false)
   const [isLockedFields, setIsLockedFields] = useState(false)
-  const [selectImg, setSelectImages] = useState()
+  const [selectImg, setSelectImages] = useState(null)
+  const [selectNames, setSelectNames] = useState(null)
+  const [nameValue, setNameValue] = useState([])
+  const refName = useRef(null)
+  const [showDropdownInput, setShowDropdownInput] = useState(false)
+  const [showSelectName, setShowSelectName] = useState(false)
 
   useEffect(() => {
+    const names = todo.map((el) => {
+      return {
+        title: el.title,
+        id: el.id
+      }
+    })
     setSelectImages(selectImages)
+    setSelectNames(names)
   }, [todo])
-  
+
 
   const buttonAddItem = () => {
-    setDefultItem({...ITEM, img: {...selectImages[0]}})
+    setDefultItem({ ...ITEM, img: { ...selectImages[0] } })
   }
 
   useEffect(() => {
@@ -40,6 +52,23 @@ const App = () => {
         return el
       })
     })
+  }
+
+  const renderTodoList = () => {
+    return <TodoList
+      todo={todo}
+      setTodo={setTodo}
+      toggleHandler={toggleHandler}
+      onDelete={onDelete}
+      defaultItem={defaultItem}
+      setDefultItem={setDefultItem}
+      onChangeTitle={onChangeTitle}
+      setFocus={setFocus}
+      focus={focus}
+      changeStatusLock={changeStatusLock}
+      selectImg={selectImg}
+      onChangeImg={onChangeImg}
+    />
   }
 
   const onDelete = (id) => {
@@ -82,6 +111,20 @@ const App = () => {
     })
   }
 
+  const renderCommonButtons = () => {
+    return <div className={classes.handle__buttons}>
+      <button className={classes.btn__add__item} onClick={buttonAddItem}>+</button>
+      {isLockedFields && <button className={classes.btn__add__item} onClick={onDeleteSelected}>X</button>}
+    </div>
+  }
+
+  const renderMainContent = () => {
+    return <div className={classes.todo__container}>
+      {renderTodoList()}
+      {renderCommonButtons()}
+    </div>
+  }
+
   useEffect(() => {
     const islockedTodos = todo.filter(todo => Boolean(todo.statusLock))
     if (islockedTodos.length > 0) {
@@ -90,7 +133,7 @@ const App = () => {
       setIsLockedFields(false)
     }
   }, [todo])
-  
+
 
   const changeStatusLock = (id) => {
     setTodo(prevState => {
@@ -106,29 +149,66 @@ const App = () => {
     })
   }
 
+  const onChangeNameValue = (e) => {
+    setNameValue(e.target.value)
+  }
+
+
+  const shouldShowNameSection = () => {
+    setShowDropdownInput(true)
+    setShowSelectName(true)
+  }
+
+  const onClickSelectname = useCallback(
+    (id, title) => {
+      setNameValue([...nameValue, title])
+      const name = selectNames.filter((el) => el.id !== id)
+      setSelectNames(name)
+    },
+    [nameValue, selectNames],
+  )
+
+  const showDropdownDetailes = () => {
+    return <div
+      className={classes.name__select}
+      onMouseLeave={() => setShowDropdownInput(false)}
+      onMouseEnter={shouldShowNameSection}
+    >
+      <label
+        className={classes.dropdown__label}
+        htmlFor="name">
+        {selectNameLabel}
+      </label>
+      {showDropdownInput && <input
+        className={classes.name__input}
+        type="text"
+        id="name"
+        ref={refName}
+        value={nameValue}
+        onChange={onChangeNameValue}
+        autoFocus={!focus ? true : false}
+      />}
+      {(showDropdownInput
+        && showSelectName
+        && (selectNames
+        && selectNames.length > 0))
+        && <div onMouseLeave={() => setShowSelectName(false)} className={classes.dropdown}>
+          <ul>
+            {(selectNames && selectNames.length > 0) && selectNames.map((el) => {
+              return <li onClick={() => onClickSelectname(el.id, el.title)} key={el.id}>{el.title}</li>
+            })}
+          </ul>
+        </div>}
+    </div>
+  }
+
+
+
   return (
     <div className={classes.todo}>
       <div className={classes.container}>
-        <div className={classes.todo__container}>
-          <TodoList
-            todo={todo}
-            setTodo={setTodo}
-            toggleHandler={toggleHandler}
-            onDelete={onDelete}
-            defaultItem={defaultItem}
-            setDefultItem={setDefultItem}
-            onChangeTitle={onChangeTitle}
-            setFocus={setFocus}
-            focus={focus}
-            changeStatusLock={changeStatusLock}
-            selectImg={selectImg}
-            onChangeImg={onChangeImg}
-          />
-          <div className={classes.handle__buttons}>
-            <button className={classes.btn__add__item} onClick={buttonAddItem}>+</button>
-            {isLockedFields && <button className={classes.btn__add__item} onClick={onDeleteSelected}>X</button>}
-          </div>
-        </div>
+        {showDropdownDetailes()}
+        {renderMainContent()}
       </div>
     </div>
   )

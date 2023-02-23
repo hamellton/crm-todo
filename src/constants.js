@@ -72,3 +72,5 @@ export const ITEM = {
   ]
 
 export const tooltipForDeleteBtn = 'удалить строку'
+
+export const selectNameLabel = 'Название'
