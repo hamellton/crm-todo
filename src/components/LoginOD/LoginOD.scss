@@ -1,0 +1,412 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;900&display=swap");
+
+.od-auth-modal-login-container {
+  display: flex;
+  min-height: 485px;
+  flex-direction: column;
+  padding: 48px 48px 64px 48px;
+  transition: transform 0.5s ease-in-out 0s;
+  justify-content: space-between;
+  transform: translateY(0px);
+  transition: all ease 0.5s;
+
+  // @media screen and(max-width: 1601px) {
+  // 	gap: 18px;
+  // 	padding: 22px 40px 44px;
+  // }
+  // @media screen and(max-width: 1441px) {
+  // 	gap: 14px;
+  // 	padding: 20px 38px 44px;
+  // }
+  // @media screen and (max-width: 1366px) {
+  // 	gap: 12px;
+  // 	padding: 18px 36px 42px;
+  // }
+  // @media screen and (max-width: 1200px) {
+  // 	gap: 10px;
+  // 	padding: 48px 48px 64px;
+  // }
+  @media screen and (max-width: 800px) {
+    gap: 8px;
+    padding: 14px 32px 38px;
+  }
+
+  .od-modal-heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    max-width: 1000px;
+    transition: all 1s ease;
+
+    &-title {
+      font-size: 20px;
+      line-height: 36px;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.02em;
+      color: #000000;
+
+      @media screen and (max-width: 800px) {
+        font-size: 14px;
+      }
+    }
+
+    &-arrow {
+      animation: animateleftSmall 0.5s;
+      cursor: pointer;
+    }
+  }
+
+  .od-modal-heading-content {
+    width: 100%;
+    display: flex;
+    margin-top: 32px;
+  }
+
+  .od-modal-input-field-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 14px;
+    height: 56px;
+    background: #ffffff;
+    border: 1px solid #cecedf;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    font-family: "NeuzeitGroReg", sans-serif;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+    gap: 5px;
+
+    .od-country-code-fixed {
+      color: #000000;
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .od-modal-input-field {
+      width: 100%;
+      border: none;
+      transition: max-width 1s ease-in-out;
+      overflow: hidden;
+      font-family: "NeuzeitGroReg", sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: -0.02em;
+      color: #000;
+    }
+  }
+
+  .od-login-modal-register-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .od-signIn-otp-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .od-signIn-otp-heading {
+      font-family: "NeuzeitGroBold", sans-serif;
+      font-size: 12px;
+      line-height: 20px;
+      letter-spacing: -0.02em;
+      color: #00000080;
+    }
+
+    .od-signIn-otp-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+
+      .od-signIn-otp-text {
+        font-size: 16px;
+        line-height: 30px;
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        color: #000000;
+      }
+
+      .od-signIn-otp-edit-text {
+        font-size: 14px;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        text-decoration-line: underline;
+        text-transform: capitalize;
+        color: #000000;
+        cursor: pointer;
+      }
+    }
+    .od-signIn-otp-main {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .resend-disable {
+        pointer-events: none;
+        color: #5a5a5a !important;
+        opacity: 0.4;
+      }
+
+      .od-opt-input-resendTimer {
+        display: flex;
+        flex-direction: row;
+        gap: 4px;
+
+        .od-otp-resend-text {
+          font-family: "LenskartSans-Bold", sans-serif;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 20px;
+          display: flex;
+          align-items: center;
+          letter-spacing: -0.02em;
+          text-decoration-line: underline;
+          text-transform: capitalize;
+          color: #000042;
+          cursor: pointer;
+        }
+        .od-otp-resend-text-secondary,
+        .od-otpTimer {
+          font-family: "LenskartSans-Bold", sans-serif;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 20px;
+          display: flex;
+          align-items: center;
+          letter-spacing: -0.02em;
+          color: #66668e;
+        }
+        .disable-text-new {
+          color: #cccccc;
+          pointer-events: none;
+        }
+      }
+
+      .od-otp-input-resendTimer {
+        .od-forget-password-text {
+          font-size: 14px;
+          line-height: 20px;
+          display: flex;
+          align-items: center;
+          letter-spacing: -0.02em;
+          text-decoration-line: underline;
+          text-transform: capitalize;
+          color: #000000;
+          cursor: pointer;
+        }
+      }
+
+      .od-login-password-input-field-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 16px 0 16px 14px;
+        background: #ffffff;
+        border: 1px solid #e2e2ee;
+        box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+        height: 56px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #333368;
+
+        @media screen and (max-width: 1441px) {
+          font-size: 12px;
+          line-height: 18px;
+          height: 48px;
+        }
+        @media screen and (max-width: 1200px) {
+          height: 44px;
+        }
+
+        .od-login-password-input-field {
+          width: 100%;
+          height: 100%;
+          border: none;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: -0.02em;
+          color: #00000080;
+        }
+
+        .od-login-password-field-img {
+          cursor: pointer;
+          margin: 15px;
+        }
+
+        .od-strike-through {
+          background: linear-gradient(
+            to left top,
+            transparent 47.75%,
+            #66668e 49.5%,
+            #66668e 50.5%,
+            transparent 52.25%
+          );
+          z-index: 100;
+        }
+      }
+    }
+    .od-sign-in-error-msg {
+      margin-top: 8px;
+      letter-spacing: -0.02em;
+      font-size: 14px;
+      line-height: 24px;
+      color: #a94442;
+      display: flex;
+      align-items: center;
+
+      animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      perspective: 1000px;
+    }
+
+    .od-otp-resend-text-alert {
+      font-family: "LenskartSans-Bold", sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.02em;
+      color: #66668e;
+      animation: fadeIn 0.5s;
+    }
+
+    .od-disc-input-field-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+
+      .od-disc-input-field-item {
+        padding: 4px;
+        gap: 8px;
+        width: 56px;
+        height: 56px;
+        background: #ffffff;
+        border: 1px solid #cecedf;
+        box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+        border-radius: 8px;
+
+        font-family: "LenskartSans-Regular", sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+        letter-spacing: -0.02em;
+        color: #000042;
+
+        @media screen and (max-width: 1441px) {
+          font-size: 16px;
+          line-height: 20px;
+          height: 42px;
+          width: 42px;
+        }
+      }
+    }
+  }
+  .disabled-button-new {
+    background-color: #cccccc;
+    pointer-events: none;
+  }
+  .captcha-verify-button {
+    width: 72px;
+    font-family: "LenskartSans-Bold", sans-serif;
+    font-size: 12px;
+    border-radius: 100px;
+    cursor: pointer;
+  }
+}
+
+.od-sign-in-error-msg {
+  margin-top: 8px;
+  letter-spacing: -0.02em;
+  font-size: 14px;
+  line-height: 24px;
+  color: #a94442;
+  display: flex;
+  align-items: center;
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.country-code-display-auto {
+  border: none !important;
+  background: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  color: #999999 !important;
+  -webkit-text-fill-color: #999999 !important;
+  -webkit-opacity: 1;
+  opacity: 1;
+  left: 0;
+  width: fit-content !important;
+  outline: none;
+}
+
+.od-animate-left-login-modal {
+  animation: animateleftLogin 0.5s !important;
+}
+
+.animate-left-small {
+  animation: animateleftSmall 0.5s;
+}
+.od-animate-right-login-modal {
+  animation: animateRightLogin 0.5s;
+}
+@keyframes animateRightLogin {
+  from {
+    transform: translate3d(30%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes animateleftLogin {
+  from {
+    transform: translate3d(-30%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes animateleftSmall {
+  from {
+    transform: translate3d(-3%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    top: -10px;
+  }
+  100% {
+    opacity: 1;
+    top: 0px;
+  }
+}
